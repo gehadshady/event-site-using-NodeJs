@@ -1,0 +1,87 @@
+<% include  ../partials/header %>
+
+
+<div class="container">
+    
+
+    <form novalidate class="needs-validation login-form mt-5 mx-auto bg-light p-4 border rounded" style="width: 60vw;"  action="/speakers/edit/<%=speaker._id%>" method="post">
+            
+        <div class="form-group">
+            <label class="text-uppercase">ID</label>
+            <input disabled type="text" class="form-control" name="id" value="<%=speaker._id%>">
+          </div>
+          
+        <div class="form-group">
+            <label class="text-uppercase">NAME</label>
+            <input required type="text" class="form-control" name="name" value="<%=speaker.name%>">
+            <div class="invalid-feedback">
+              Please enter the name.
+            </div>
+       
+          </div>
+    
+          <div class="form-group">
+            <label class="text-uppercase">Age</label>
+            <input required type="number" class="form-control" id="age" name="age" value="<%=speaker.age%>">
+            <div class="invalid-feedback">
+              Please enter the age.
+            </div>
+            <span id='message'></span>
+
+          </div>
+
+          <div class=" text-center ">
+              <button type="submit" class=" btn btn-info btn-lg text-white">save</button>
+          </div>
+            
+        </form>
+    </div>
+<!-- <form action="/speakers/edit/<%=speaker.id%>" method="post" enctype="multipart/form-data">
+    <input type="text" name="id" value="<%=speaker._id%>"  disabled >
+    <input type="text" name="name" value="<%=speaker.name%>" >
+    <input type="text" name="name" value="<%=speaker.age%>" >
+    <input type="file" name="speakerImg" >
+    <input type="submit" value="save">
+    <a href="" class="btn">cancel</a>
+</form> -->
+
+
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false||err==1) {
+            event.preventDefault();
+            event.stopPropagation();
+            $('#age').css({"border":"1px solid red","background-image":`url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E")`})
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+  </script>
+<%include ../partials/footer%>
+<script>
+
+  $('#age').on('keyup', function () {
+    console.log($(this).val())
+      if ($(this).val()<20 ||  $(this).val()>50) {
+      $('#message').html('Age must be between 20 and 50').css('color', 'red');
+      err=1
+      }
+       else 
+      {
+        $('#message').html('good').css('color', 'green');
+        err=1
+      }
+      });
+  
+  </script>

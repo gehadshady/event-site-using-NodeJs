@@ -1,0 +1,107 @@
+<% include  ../partials/header %>
+
+<h2>list</h2>
+<br>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Img</th>
+       
+        <th></th>
+
+       
+      </tr>
+    </thead>
+    <tbody>
+      
+
+        <%speakers.forEach((s)=>{%>
+            <tr>
+                <td id="id"><%=s._id%></td>
+                <td><%=s.name%></td>
+                <td><%=s.age%></td>
+                <td><image src="/imgs/<%=s.image%>"/></td>
+                  <td>
+                    <a href="/speakers/edit/<%=s._id%>"  class="btn btn-info">Edit</a>
+                    <a  onclick="Delete(this,'<%=s._id%>')" class="btn btn-danger text-white">Delete</a> 
+                    <button href="" type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-success" onclick="Details(this,'<%=s._id%>')">Details</button >
+                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div id="modal-body" class="modal-body">
+                              <p>ID: <span class="lead" id="id"></span></p>
+                              <p>Name: <span class="lead" id="name"></span></p>
+                              <p>Age: <span class="lead" id="age"></span></p>
+                            </div>
+                           
+                          </div>
+                        </div>
+                      </div>
+
+                  </td>
+            </tr>
+        <%})%> 
+        <h1><%speakers%></h1>
+        <!-- <th scope="row"></th>
+        <td></td>
+        <td></td>
+        <td></td> -->
+      </tr>
+      
+    </tbody>
+  </table>
+  <script>
+  function Details(obj,id){
+    //let id=$(obj).parent().siblings("")[0].innerText;
+    $.ajax({
+      url:"http://localhost:8080/speakers/Details/"+id,
+      method:"get",
+      //contentType:"application/json",
+      //data:"{'name:'Anonymouse'}",
+      dataType:"json",
+      success:function(result){ 
+      //console.log(result)
+      result.forEach(obj => {
+        $("#modal-body #id").text(obj._id)
+        $("#modal-body #name").text(obj.name)
+        $("#modal-body #age").text(obj.age)
+        
+      });
+
+      },
+      error:function(error){/*on error */}
+      });
+  }
+
+  function Delete(obj,id){
+    o=obj
+    console.log("w")
+    $.ajax({
+      url:"http://localhost:8080/speakers/Delete/"+id,
+      method:"get",
+      //contentType:"application/json",
+      //data:"{'name:'Anonymouse'}",
+      //dataType:"json",
+      success:function(result){ 
+      console.log("ww")
+      $(obj).parents("tr").fadeOut();
+      },
+      error:function(error){
+      console.log(error.message)
+
+      }
+      });
+
+  }
+  
+  </script>
+<%include ../partials/footer%>

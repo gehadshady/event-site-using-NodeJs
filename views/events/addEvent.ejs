@@ -1,0 +1,103 @@
+<%include ../partials/header%>
+
+
+
+<div class="container">
+    
+
+        <form novalidate class="needs-validation login-form mt-5 mx-auto bg-light p-4 border rounded" style="width: 60vw;"  action="/events/add" method="post">
+                
+            <div class="form-group">
+                <label class="text-uppercase">ID</label>
+                <input required type="text" class="form-control" name="id" >
+                <div class="invalid-feedback">
+                  Please enter ID.
+                </div>
+           
+              </div>
+              
+            <div class="form-group">
+                <label class="text-uppercase">TITLE</label>
+                <input required type="text" class="form-control" name="title" >
+                <div class="invalid-feedback">
+                  Please enter event title.
+                </div>
+           
+              </div>
+        
+              <div class="form-group">
+                <label class="text-uppercase">MAIN SPEAKER</label>
+                <select required  id="mainSpeaker" class="custom-select" name="mainSpeaker">
+                    <%speakers.forEach((s)=>{%>
+                    <option value="<%=s._id%>"><%=s.name%></option>            
+                    <% })%>
+                </select>
+                <div class="invalid-feedback">
+                  Please choose main speaker.
+                </div>
+           
+              </div>
+    
+              <div class="form-group">
+                <label class="text-uppercase">OTHER SPEAKER</label>
+                <select class="custom-select" id="otherSpeakers" 
+                name="otherSpeakers" multiple>
+                        <%speakers.forEach((s)=>{%>
+                            <option value="<%=s._id%>"><%=s.name%></option>            
+                           <% })%>
+            
+                   </select>
+                </div>
+              <div class=" text-center ">
+                  <button type="submit"class=" btn btn-lg btn-info text-white">save</button>
+              </div>
+                
+            </form>
+        </div>
+    
+    <!-- <form action="/events/add" method="post">
+        <input type="text" name="id"  placeholder="id">
+        <input type="text" name="title" placeholder="title">
+       <select name="mainSpeaker">
+           <%speakers.forEach((s)=>{%>
+           <option value="<%=s._id%>"><%=s.name%></option>            
+          <% })%>
+       </select>
+       <select name="otherSpeakers" multiple>
+            <%speakers.forEach((s)=>{%>
+                <option value="<%=s._id%>"><%=s.name%></option>            
+               <% })%>
+
+       </select>
+        <input type="submit" value="add">
+    </form> -->
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+      </script>
+     
+<%include ../partials/footer%>
+<script>
+  mainSpeaker=$("#mainSpeaker")
+  otherSpeakers=$("#otherSpeakers")
+  $(mainSpeaker).change(function (e) { 
+    //console.log(mainSpeaker.val())
+    $("#otherSpeakers option[value="+mainSpeaker.val()+"]").attr("disabled","disabled").siblings().attr("disabled",false)
+  });
+</script>

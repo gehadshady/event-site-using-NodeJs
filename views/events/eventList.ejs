@@ -1,0 +1,85 @@
+
+
+<% include  ../partials/header %>
+
+<h1>events list</h1>
+
+<br>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">title</th>
+        <th scope="col">main speaker</th>
+        <th scope="col">other speaker</th>
+        <th scope="col">Date</th>
+        <th scope="col">Status</th>
+
+
+       
+      </tr>
+    </thead>
+    <tbody>
+      
+
+        <%events.forEach((e)=>{%>
+            <tr>
+                <td><%=e._id%></td>
+                <td><%=e.Title%></td>
+                <td><%=e.mainSpeaker.name%></td>
+                <td>
+                    <ul class="list-unstyled">
+                        <%e.otherSpeakers.forEach((o)=>{%>
+
+                        <li><%=o.name%></li>
+                 
+                        <%})%>
+                    </ul>
+                </td>
+                <td><%=e.Date%></td>
+                <td><%=e.status%></td>
+
+
+               
+                  <td>
+                    <a href="/events/edit/<%=e._id%>"  class="btn btn-info">Edit</a>
+                    <a onclick="Delete(this,'<%=e._id%>')" class="btn btn-danger text-white">Delete</a>
+
+                  </td>
+            </tr>
+        <%})%> 
+      
+        <!-- <th scope="row"></th>
+        <td></td>
+        <td></td>
+        <td></td> -->
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <script>
+  
+  
+  function Delete(obj,id){
+    o=obj
+    console.log("w")
+    $.ajax({
+      url:"http://localhost:8080/events/Delete/"+id,
+      method:"get",
+      //contentType:"application/json",
+      //data:"{'name:'Anonymouse'}",
+      //dataType:"json",
+      success:function(result){ 
+        console.log("sa7")
+        $(obj).parents("tr").fadeOut();
+      },
+      error:function(error){
+      console.log(error.message)
+
+      }
+      });
+
+  }
+  </script>
+<%include ../partials/footer%>

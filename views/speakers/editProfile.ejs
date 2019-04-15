@@ -1,0 +1,79 @@
+<% include  ../partials/header %>
+
+
+<div class="container">
+    
+
+    <form novalidate class="needs-validation login-form mt-5 mx-auto bg-light p-4 border rounded" style="width: 60vw;"  action="/speakers/editProfile/<%=speaker._id%>" method="post">
+            
+        <div class="form-group">
+            <label class="text-uppercase">ID</label>
+            <input disabled type="text" class="form-control" name="id" value="<%=speaker._id%>">
+          </div>
+          
+        <div class="form-group">
+            <label class="text-uppercase">NAME</label>
+            <input required type="text" class="form-control" name="name" value="<%=speaker.name%>">
+            <div class="invalid-feedback">
+                Please enter your name.
+            </div>
+       
+          </div>
+    
+          <div class="form-group">
+            <label class="text-uppercase">Age</label>
+            <input required type="text" class="form-control" name="age" value="<%=speaker.age%>">
+            <div class="invalid-feedback">
+                Please enter your age.
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="text-uppercase">password</label>
+            <input required type="text" class="form-control" name="password" value="<%=speaker.password%>">
+            <div class="invalid-feedback">
+                Please enter your password.
+            </div>
+          </div>
+
+          <div class=" text-center ">
+              <button type="submit" style="background: #DE6262;" class=" btn btn-login btn-lg text-white">save</button>
+          </div>
+            
+        </form>
+    </div>
+<!-- <form action="/speakers/edit/<%=speaker.id%>" method="post" enctype="multipart/form-data">
+    <input type="text" name="id" value="<%=speaker._id%>"  disabled >
+    <input type="text" name="name" value="<%=speaker.name%>" >
+    <input type="text" name="name" value="<%=speaker.age%>" >
+    <input type="file" name="speakerImg" >
+    <input type="submit" value="save">
+    <a href="" class="btn">cancel</a>
+</form> -->
+
+
+<!-- <%=speaker.id %>
+<%=speaker.name %> -->
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+    </script>
+<%include ../partials/footer%>

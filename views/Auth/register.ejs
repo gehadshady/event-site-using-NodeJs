@@ -1,0 +1,148 @@
+
+<!-- <% include  ../partials/header %> -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<link rel="stylesheet" href="/css/login-style.css">
+
+
+<section class="login-block">
+  <div class="container">
+<div class="row">
+  <div class="col-md-4 login-sec">
+      <h2 class="text-center">Register Now</h2>
+      <form novalidate class="needs-validation login-form"  action="/auth/register" method="post">
+        
+        <div class="form-group">
+            <label class="text-uppercase">ID</label>
+            <input required type="text" class="form-control" name="id" placeholder="">
+            <div class="invalid-feedback">
+              Please enter your id
+            </div>
+          </div>
+          
+        <div class="form-group">
+            <label class="text-uppercase">Username</label>
+            <input required type="text" class="form-control" name="userName" placeholder="">
+            <div class="invalid-feedback">
+              Please enter your user name
+            </div>
+        </div>
+
+          <div class="form-group">
+            <label class="text-uppercase">Age</label>
+            <input required type="number" class="form-control" name="userAge" id="age" placeholder="">
+            <div class="invalid-feedback">
+              Please enter your age
+            </div>
+            <span id="messageAge"></span>
+          </div>
+
+        <div class="form-group">
+          <label class="text-uppercase">Password</label>
+          <input required type="password" class="form-control" name="userPass" id="password">
+          <div class="invalid-feedback">
+            Please enter your password
+          </div>
+        </div>
+        <div class="form-group">
+            <label class="text-uppercase">Conferm Password</label>
+            <input required type="password" class="form-control" name="userConfermPass" id="confirm_password">
+            <div class="invalid-feedback">
+              Please conferm your password
+            </div>
+            <span id='messagePass'></span>
+          </div>
+        <div class="form-check">
+          
+          <button type="submit" class="btn btn-login float-right">Submit</button>
+        </div>
+        </form>
+        <!-- <div class="copy-text">Created with <i class="fa fa-heart"></i> by <a href="http://grafreez.com">Grafreez.com</a></div> -->
+          </div>
+          <div class="col-md-8 banner-sec"></div>
+</section>
+<!-- 
+<form action="/auth/login" method="post">
+    <input type="text" name="userName">
+    <input type="password" name="userPass" >
+    <input type="submit" value="submit">
+</form> -->
+
+
+
+<!-- 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+
+
+<%include ../partials/footer%>
+
+
+<script>
+  $('#confirm_password').on('keyup', function () {
+      if ($('#password').val() == $('#confirm_password').val()) 
+      {
+        $(this).css("border","1px solid green")
+        $('#messagePass').html('Matching').css('color', 'green');
+        err=0
+      }
+       else 
+      {
+        $('#messagePass').html('Not Matching').css('color', 'red');
+        $(this).css("border","1px solid red")
+
+        err=1
+      }
+      });
+      $('#age').on('keyup', function () {
+      console.log($(this).val())
+      if ($(this).val()<20 ||  $(this).val()>50) {
+        $('#messageAge').html('Age must be between 20 and 50').css('color', 'red');
+        $(this).css("border","1px solid red")
+        err=1
+      }
+       else 
+      {
+        $('#messageAge').html('good').css('color', 'green');
+        $(this).css("border","1px solid green")
+        err=1
+      }
+      });
+  
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false||err==1) {
+              event.preventDefault();
+              event.stopPropagation();
+              $('#confirm_password, #password , #age').css({"border":"1px solid red","background-image":`url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E")`,
+              "background-repeat": "no-repeat",
+              "background-position-x": "100%"
+})
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+  
+  
+    })();
+    </script>
+
+<!-- 
+    <form action="/auth/register" method="post">
+         <input required type="text" name="id" placeholder="id">
+        <input required type="text" name="userName" placeholder="name">
+        <!-- <input required type="text" name="userAge" placeholder="age"> 
+        <input required type="password" name="userPass" placeholder="pass" >
+        <input  required type="password" name="userConfermPass" placeholder="conferm pass">
+        <input type="submit" value="submit">
+    </form>-->
+
